@@ -66,23 +66,25 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Images\star1.png" />
-    <Content Include="Images\star2.png" />
-    <Content Include="Images\star3.png" />
-    <Content Include="Images\star4.png" />
-    <Content Include="Images\star5.png" />
-    <Content Include="Resources\star1.png" />
-    <Content Include="Resources\star2.png" />
-    <Content Include="Resources\star3.png" />
-    <Content Include="Resources\star4.png" />
-    <Content Include="Resources\star5.png" />
+    <None Include="Resources\star1.png" />
   </ItemGroup>
-  <ItemGroup />
   <ItemGroup>
     <EmbeddedResource Include="Resource1.resx">
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resource1.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\star2.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\star3.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\star4.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\star5.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
