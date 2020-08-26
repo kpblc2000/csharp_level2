@@ -31,8 +31,10 @@ namespace KulikLev2
 		/// <summary>
 		/// Инициализация графики для формы
 		/// </summary>
-		/// <param name="form"></param>
-		public static void Init(KulikForm form)
+		/// <param name="form">Форма, на которой будет выполняться работа</param>
+		/// <param name="CrossRange">Количество "крестиков". По умолчанию = 15</param>
+		/// <param name="StarRange">Количество изображений звезд. По умолчанию = 6</param>
+		public static void Init(KulikForm form, int CrossRange = 15, int StarRange = 6)
 		{
 			Graphics gr;
 			_context = BufferedGraphicsManager.Current;
@@ -40,17 +42,24 @@ namespace KulikLev2
 			Width = form.ClientSize.Width;
 			Height = form.ClientSize.Height;
 			Buffer = _context.Allocate(gr, new Rectangle(0, 0, Width, Height));
-			// Д.б. в Load()
-			BaseObjectArray = new CBaseObject[26];
-			for (int i = 0; i < BaseObjectArray.Length / 2; i++)
-			{
-				BaseObjectArray[i] = new CBaseObject(new Point(600, i * 20), new Point(15 - i, 15 - i), new Size(10, 10));
-			}
-			for (int i = BaseObjectArray.Length / 2; i < BaseObjectArray.Length; i++)
-			{
-				BaseObjectArray[i] = new CStar(new Point(600, i * 20), new Point(15 - i, 15 - i), new Size(5, 5));
-			}
 
+			// Load()
+
+			Random rndPos = new Random();
+			Random rndSpeed = new Random();
+			Random rndSize = new Random();
+
+			BaseObjectArray = new CBaseObject[CrossRange + StarRange];
+			for (int i = 0; i < StarRange; i++)
+			{
+				int tempSize = rndSize.Next(25, 55);
+				BaseObjectArray[i] = new CBaseObject(new Point(rndPos.Next(1, Width), rndPos.Next(1, Height)), new Point(rndSpeed.Next(10, 30), 0), new Size(tempSize, tempSize));
+			}
+			for (int i = StarRange; i < BaseObjectArray.Length; i++)
+			{
+				int tempSize = rndSize.Next(3, 35);
+				BaseObjectArray[i] = new CStar(new Point(rndPos.Next(1, Width), rndPos.Next(1, Height)), new Point(rndSpeed.Next(10, 30), 0), new Size(tempSize, tempSize));
+			}
 
 			Timer timer = new Timer();
 			timer.Interval = 100;

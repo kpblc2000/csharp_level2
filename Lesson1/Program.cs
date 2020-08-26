@@ -14,7 +14,7 @@ namespace KulikLev2
 			KulikForm frm = new KulikForm();
 			frm.Width = 800;
 			frm.Height = 600;
-			KulikGame.Init(frm);
+			KulikGame.Init(frm, 40, 5);
 			frm.Show();
 			KulikGame.Draw();
 			Application.Run(frm);
