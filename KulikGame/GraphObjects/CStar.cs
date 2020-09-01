@@ -31,17 +31,17 @@ namespace KulikLev2
 			KulikGame.Buffer.Graphics.DrawLine(Pens.White, Position.X + Size.Width, Position.Y, Position.X, Position.Y + Size.Height);
 		}
 
-		///// <summary>
-		///// Обновление объекта
-		///// </summary>
-		//public override void Update()
-		//{
-		//	Position.X += Direction.X;
-		//	if (Position.X<0)
-		//	{
-		//		Position.X = KulikGame.Width + Size.Width;
-		//	}
-		//}
+		/// <summary>
+		/// Обновление объекта
+		/// </summary>
+		public override void Update()
+		{
+			Position.X += Direction.X;
+			if (Position.X < 0)
+				Position.X = KulikGame.Width;
+			else if (Position.X > KulikGame.Width)
+				Position.X = -Size.Width;
+		}
 
 	}
 }

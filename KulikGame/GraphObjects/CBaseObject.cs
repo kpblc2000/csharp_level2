@@ -9,7 +9,7 @@ using System.Xml.Serialization.Advanced;
 
 namespace KulikLev2
 {
-	class CBaseObject
+	abstract class CBaseObject
 	{
 		protected Point Position;
 		protected Point Direction;
@@ -57,11 +57,16 @@ namespace KulikLev2
 		{
 			Position.X += Direction.X;
 			Position.Y += Direction.Y;
-
 			if (Position.X < 0)
 				Position.X = KulikGame.Width;
 			else if (Position.X > KulikGame.Width)
-				Position.X = 0;
+				Position.X = -Size.Width;
+
+			if (Position.Y < 0)
+				Position.Y = KulikGame.Height;
+			else if (Position.Y > KulikGame.Height)
+				Position.Y = -Size.Height;
+
 		}
 	}
 }
