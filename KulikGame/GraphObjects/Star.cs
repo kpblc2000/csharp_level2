@@ -11,7 +11,7 @@ namespace KulikLev2
 	/// <summary>
 	/// Класс "рисования" крестиков
 	/// </summary>
-	class CStar : CBaseObject
+	class Star : BaseObject
 	{
 		/// <summary>
 		/// Создание объекта для "рисования" крестиков
@@ -19,7 +19,7 @@ namespace KulikLev2
 		/// <param name="Position">Левая верхняя точка позиционирования крестика</param>
 		/// <param name="Direction">Направление перемещения (положительное первое число - направо; положительное второе число - налево). Значения определяют скорость перемещения объекта</param>
 		/// <param name="Size">Размер объекта, ед.формы.</param>
-		public CStar(Point Position, Point Direction, Size Size) : base(Position, Direction, Size)
+		public Star(Point Position, Point Direction, Size Size) : base(Position, Direction, Size)
 		{ }
 
 		/// <summary>
@@ -36,7 +36,7 @@ namespace KulikLev2
 		/// </summary>
 		public override void Update()
 		{
-			Position.X += Direction.X;
+			Position.X -= Direction.X;
 			if (Position.X < 0)
 				Position.X = KulikGame.Width;
 			else if (Position.X > KulikGame.Width)

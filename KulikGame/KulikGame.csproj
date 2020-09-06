@@ -45,10 +45,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="GraphObjects\CAsteroid.cs" />
-    <Compile Include="GraphObjects\CBullet.cs" />
-    <Compile Include="GraphObjects\CBaseObject.cs" />
-    <Compile Include="GraphObjects\CStar.cs" />
+    <Compile Include="GraphObjects\Asteroid.cs" />
+    <Compile Include="GraphObjects\Bullet.cs" />
+    <Compile Include="GraphObjects\BaseObject.cs" />
+    <Compile Include="GraphObjects\Ship.cs" />
+    <Compile Include="GraphObjects\Star.cs" />
     <Compile Include="KulikForm.cs">
       <SubType>Form</SubType>
     </Compile>
