@@ -6,6 +6,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 using System.Security.Cryptography;
+using System.Collections;
 
 namespace KulikLev2
 {
@@ -20,6 +21,8 @@ namespace KulikLev2
         private static Dictionary<int, Bullet> dictBullet = new Dictionary<int, Bullet>();
         private static List<int> erasedBullets = new List<int>();
         private static Asteroid[] _asteroids;
+        private static HealthKit[] _kits;
+        private static int FightAster = 0;
 
         private static Timer _timer = new Timer();
 
@@ -105,10 +108,8 @@ namespace KulikLev2
 
             #region Урок 2. Добавление астероидов
 
+            // Звезды
             BaseObjectArray = new BaseObject[30];
-            // Random _r = new Random();
-            // _bullet = new Bullet(new Point(0, 200), new Point(_r.Next(0, 10), _r.Next(0, 10)), new Size(4, 1));
-            _asteroids = new Asteroid[4];
             var rnd = new Random();
             for (var i = 0; i < BaseObjectArray.Length; i++)
             {
@@ -116,6 +117,8 @@ namespace KulikLev2
                 BaseObjectArray[i] = new Star(new Point(rnd.Next(0, KulikGame.Width), rnd.Next(0, KulikGame.Height)), new Point(-r, r), new Size(3, 3));
             }
 
+            // Астероиды
+            _asteroids = new Asteroid[4];
             for (int i = 0; i < _asteroids.Length; i++)
             {
                 int r = rnd.Next(0, 50);
@@ -123,23 +126,52 @@ namespace KulikLev2
                 _asteroids[i] = new Asteroid(new Point(rnd.Next(KulikGame.Width / 4, KulikGame.Width), rnd.Next(0, KulikGame.Height)), new Point(-r, r / 10), new Size(s, s));
             }
 
-            //#if DEBUG
-            //            // Тест факта столкновения
-            //            Point pt = new Point(-_bullet.Direction.X, 0);
-            //            _asteroids[_asteroids.Length - 1].Direction = pt;
-            //            pt.X = KulikGame.Width / 2;
-            //            pt.Y = _bullet.Position.Y;
-            //            _asteroids[_asteroids.Length - 1].Position = pt;
-            //#endif
+            // Аптечки
+            _kits = new HealthKit[5];
+            for (int i = 0; i < _kits.Length; i++)
+            {
+                int r = rnd.Next(0, 50);
+                int s = rnd.Next(11, 20);
+                _kits[i] = new HealthKit(new Point(rnd.Next(KulikGame.Width / 4, KulikGame.Width), rnd.Next(0, KulikGame.Height)), new Point(-r, r / 10), new Size(s, s));
+            }
 
             #endregion
 
-            _timer.Interval = 20;
+            _timer.Interval = 70;
             _timer.Start();
             _timer.Tick += TimerTick;
 
-            Ship.MessageDie += Finish;
+            Ship.eventMessage += Finish;
+            Ship.eventMessage += FinishConsole;
 
+            Ship.eventHealth += Health;
+            Ship.eventStatus += Status;
+
+        }
+
+        public static void Status(object sender, KeyEventArgs args)
+        {
+
+            // Keys.Control.Equals(args.KeyCode);
+            switch (args.KeyCode)
+            {
+                case Keys.ControlKey:
+                    Console.WriteLine("Выстрел");
+                    break;
+                case Keys.Down:
+                    Console.WriteLine("Вниз");
+                    break;
+                case Keys.Up:
+                    Console.WriteLine("Вверх");
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        public static void Health(int Value)
+        {
+            Console.WriteLine($"Здоровья : {_ship.Energy}");
         }
 
         private static void form_KeyDown(object sender, KeyEventArgs e)
@@ -147,11 +179,6 @@ namespace KulikLev2
             switch (e.KeyCode)
             {
                 case Keys.ControlKey:
-                    //_bullet = new Bullet(
-                    //    new Point(_ship.Position.X + _ship.Size.Width, _ship.Position.Y + _ship.Size.Height / 2),
-                    //    new Point(4, 0),
-                    //    new Size(4, 1)
-                    //    );
                     int idx = 0;
                     if (erasedBullets.Count > 0)
                     {
@@ -184,6 +211,8 @@ namespace KulikLev2
                     _ship.MoveDown();
                     break;
             }
+
+            _ship.funcStatus(sender, e);
         }
 
         private static void TimerTick(object sender, EventArgs e)
@@ -195,6 +224,7 @@ namespace KulikLev2
         public static void Draw()
         {
             Buffer.Graphics.Clear(Color.Black);
+
             int notNullLen = _asteroids.Length;
             foreach (var item in _asteroids)
             {
@@ -205,6 +235,8 @@ namespace KulikLev2
                 foreach (BaseObject item in BaseObjectArray)
                 { item.Draw(); }
                 foreach (Asteroid item in _asteroids)
+                { item?.Draw(); }
+                foreach (HealthKit item in _kits)
                 { item?.Draw(); }
                 foreach (var item in dictBullet)
                 {
@@ -233,41 +265,69 @@ namespace KulikLev2
                 if (_asteroids[i] == null) continue;
                 _asteroids[i].Update();
 
-                for (int j = 0; j < dictBullet.Count; j++)
-                {
-                    if (dictBullet.ContainsKey(j))
-                    {
-                        if (_asteroids[i].Collision(dictBullet[j]) || dictBullet[j].Position.X >= KulikGame.Width)
-                        {
-                            dictBullet.Remove(j);
-                            erasedBullets.Add(j);
+                int[] bulletKeys = dictBullet.Keys.ToArray();
 
-                        }
-                        else
-                        {
-                            dictBullet[j].Update();
-                        }
+                foreach (int key in bulletKeys)
+                {
+                    Bullet _o = dictBullet[key];
+
+                    if (_asteroids[i] != null && _asteroids[i].Collision(_o))
+                    {
+                        dictBullet.Remove(key);
+                        _asteroids[i] = null;
+                        erasedBullets.Add(key);
+                        FightAster += 1;
+                        continue;
+                    }
+                    if (_o.Position.X >= KulikGame.Width)
+                    {
+                        dictBullet.Remove(key);
+                        erasedBullets.Add(key);
+                    }
+                    else
+                    {
+                        dictBullet[key].Update();
                     }
                 }
 
-                if (_asteroids[i].Collision(_ship))
+                if (_asteroids[i] != null && _asteroids[i].Collision(_ship))
                 {
-                    var rnd = new Random();
-                    _ship?.EnergyLow(rnd.Next(1, 10));
+                    int lowEnergy = _asteroids[i].Power;
+                    _ship?.EnergyLow(lowEnergy);
+                    _ship?.funcHealth(lowEnergy);
+
                     System.Media.SystemSounds.Asterisk.Play();
                     _asteroids[i] = null;
                     if (_ship.Energy <= 0) _ship?.Die();
                 }
             }
 
-            //_bullet?.Update();
+            for (int i = 0; i < _kits.Length; i++)
+            {
+                if (_kits[i] == null) continue;
+                _kits[i].Update();
+                if (_kits[i].Collision(_ship))
+                {
+                    int lowEnergy = _kits[i].Power;
+                    _ship?.EnergyPlus(lowEnergy);
+                    _ship?.funcHealth(lowEnergy);
+                    _kits[i] = null;
+                }
+            }
         }
 
         public static void Finish()
         {
             _timer.Stop();
             Buffer.Graphics.DrawString("The End", new Font(FontFamily.GenericSansSerif, 60, FontStyle.Underline), Brushes.White, 200, 100);
+            Buffer.Graphics.DrawString("Сбито " + FightAster.ToString() + " астеродиов", new Font(FontFamily.GenericSansSerif, 30, FontStyle.Underline), Brushes.White, 200, 200);
+
             Buffer.Render();
+        }
+
+        public static void FinishConsole()
+        {
+            Console.WriteLine("Корабль кончился");
         }
 
     }

@@ -48,6 +48,7 @@
     <Compile Include="GraphObjects\Asteroid.cs" />
     <Compile Include="GraphObjects\Bullet.cs" />
     <Compile Include="GraphObjects\BaseObject.cs" />
+    <Compile Include="GraphObjects\HealthKit.cs" />
     <Compile Include="GraphObjects\Ship.cs" />
     <Compile Include="GraphObjects\Star.cs" />
     <Compile Include="KulikForm.cs">

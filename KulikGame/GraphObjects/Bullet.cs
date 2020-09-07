@@ -1,9 +1,10 @@
-﻿using System.Drawing;
+﻿using System.Collections;
+using System.Drawing;
 
 namespace KulikLev2
 {
     /// <summary>
-    /// Астероиды
+    /// Пули
     /// </summary>
     class Bullet : BaseObject
     {
@@ -22,7 +23,10 @@ namespace KulikLev2
 
         public new Point Direction { get { return base.Direction; } set { base.Direction = value; } }
 
-        public Size Size { get { return base.Size; } set { base.Size = value; } }
+        public new Size Size { get { return base.Size; } set { base.Size = value; } }
+
+        public object Current => throw new System.NotImplementedException();
+
         /// <summary>
         /// Отрисовка объекта пуля
         /// </summary>
@@ -30,6 +34,7 @@ namespace KulikLev2
         {
             KulikGame.Buffer.Graphics.DrawRectangle(Pens.OrangeRed, Position.X - base.Size.Width / 2, Position.Y - base.Size.Height / 2, base.Size.Width, base.Size.Height);
         }
+
 
         /// <summary>
         /// Обновление и проверка положения пуля
@@ -43,5 +48,7 @@ namespace KulikLev2
             else if (Position.X > KulikGame.Width)
                 Position = new Point(0, Position.Y);
         }
+
+
     }
 }

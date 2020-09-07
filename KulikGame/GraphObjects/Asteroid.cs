@@ -2,6 +2,7 @@
 
 namespace KulikLev2
 {
+
     /// <summary>
     /// Астероиды
     /// </summary>
@@ -31,7 +32,7 @@ namespace KulikLev2
         /// <param name="Position">Левый верхний угол отрисовки</param>
         /// <param name="Direction">Направление движения (положительные числа - влево и вниз)</param>
         /// <param name="Size">Размер астероида</param>
-        public Asteroid(Point Position, Point Direction, Size Size) : this(Position, Direction, Size, 0)
+        public Asteroid(Point Position, Point Direction, Size Size) : this(Position, Direction, Size, Size.Width)
         { }
 
         public new Point Position { get { return base.Position; } set { base.Position = value; } }
@@ -64,27 +65,14 @@ namespace KulikLev2
 
         }
 
-        private bool PointInRectangle(Point CheckPoint, Point RectangleBasePoint, Size RectangleSize)
-        {
-            return (CheckPoint.X >= RectangleBasePoint.X && CheckPoint.X <= RectangleBasePoint.X + RectangleSize.Width && CheckPoint.Y >= RectangleBasePoint.Y && CheckPoint.Y <= RectangleBasePoint.Y + RectangleSize.Height);
-        }
+        //private bool PointInRectangle(Point CheckPoint, Point RectangleBasePoint, Size RectangleSize)
+        //{
+        //    return (CheckPoint.X >= RectangleBasePoint.X && CheckPoint.X <= RectangleBasePoint.X + RectangleSize.Width && CheckPoint.Y >= RectangleBasePoint.Y && CheckPoint.Y <= RectangleBasePoint.Y + RectangleSize.Height);
+        //}
 
-        private bool IsPointInside(Point CheckPoint, Size CheckSize)
+        public bool Collision(BaseObject baseObject)
         {
-            Point maxPoint = new Point(CheckPoint.X + CheckSize.Width, CheckPoint.Y + CheckSize.Height);
-            Point thisMax = new Point(Position.X + Size.Width, Position.Y + Size.Height);
-            bool res =
-                CheckPoint.X >= Position.X && CheckPoint.X <= thisMax.X &&
-                CheckPoint.Y >= Position.Y && CheckPoint.Y <= thisMax.Y ||
-                maxPoint.X >= Position.X && maxPoint.X <= thisMax.X &&
-                maxPoint.Y >= Position.Y && maxPoint.Y <= thisMax.Y;
-
-            return res;
-        }
-
-        public bool Collision(Bullet Bullet)
-        {
-            //if ((PointInRectangle(Bullet.Position, Position, Size) || PointInRectangle(new Point(Bullet.Position.X + Bullet.Size.Width, Bullet.Position.Y + Bullet.Size.Height), Position, Size)))
+            //if ((PointInRectangle(baseObject.Position, Position, Size) || PointInRectangle(new Point(baseObject.Position.X + baseObject.Size.Width, baseObject.Position.Y + baseObject.Size.Height), Position, Size)))
             //{
             //    return true;
             //}
@@ -92,20 +80,8 @@ namespace KulikLev2
             //{
             //    return false;
             //}
-            return (PointInRectangle(Bullet.Position, Position, Size) || PointInRectangle(new Point(Bullet.Position.X + Bullet.Size.Width, Bullet.Position.Y + Bullet.Size.Height), Position, Size));
-        }
 
-        public bool Collision(Ship Ship)
-        {
-            //if ((PointInRectangle(Ship.Position, Position, Size) || PointInRectangle(new Point(Ship.Position.X + Ship.Size.Width, Ship.Position.Y + Ship.Size.Height), Position, Size)))
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
-            return (PointInRectangle(Ship.Position, Position, Size) || PointInRectangle(new Point(Ship.Position.X + Ship.Size.Width, Ship.Position.Y + Ship.Size.Height), Position, Size));
+            return ((PointInRectangle(baseObject.Position, Position, Size) || PointInRectangle(new Point(baseObject.Position.X + baseObject.Size.Width, baseObject.Position.Y + baseObject.Size.Height), Position, Size)));
         }
 
     }
