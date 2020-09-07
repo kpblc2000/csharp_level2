@@ -17,8 +17,13 @@ namespace KulikLev2
         private static int _width;
         private static int _height;
 
-        private static Bullet _bullet;
+        private static int AsteroidRange = 4;
+
+
         private static Dictionary<int, Bullet> dictBullet = new Dictionary<int, Bullet>();
+
+        private static List<Bullet> listBullets = new List<Bullet>();
+
         private static List<int> erasedBullets = new List<int>();
         private static Asteroid[] _asteroids;
         private static HealthKit[] _kits;
@@ -65,6 +70,20 @@ namespace KulikLev2
         }
 
         static KulikGame() { }
+
+        private static void InitAsteroids(int Range)
+        {
+            _asteroids = new Asteroid[Range];
+            var rnd = new Random();
+            for (int i = 0; i < _asteroids.Length; i++)
+            {
+                int r = rnd.Next(0, 50);
+                int s = rnd.Next(11, 20);
+                _asteroids[i] = new Asteroid(new Point(rnd.Next(KulikGame.Width / 4, KulikGame.Width), rnd.Next(0, KulikGame.Height)), 
+                    new Point(-r, 0),
+                    new Size(s, s));
+            }
+        }
 
         /// <summary>
         /// Инициализация графики для формы
@@ -118,13 +137,14 @@ namespace KulikLev2
             }
 
             // Астероиды
-            _asteroids = new Asteroid[4];
-            for (int i = 0; i < _asteroids.Length; i++)
-            {
-                int r = rnd.Next(0, 50);
-                int s = rnd.Next(11, 20);
-                _asteroids[i] = new Asteroid(new Point(rnd.Next(KulikGame.Width / 4, KulikGame.Width), rnd.Next(0, KulikGame.Height)), new Point(-r, r / 10), new Size(s, s));
-            }
+            InitAsteroids(AsteroidRange);
+            //_asteroids = new Asteroid[4];
+            //for (int i = 0; i < _asteroids.Length; i++)
+            //{
+            //    int r = rnd.Next(0, 50);
+            //    int s = rnd.Next(11, 20);
+            //    _asteroids[i] = new Asteroid(new Point(rnd.Next(KulikGame.Width / 4, KulikGame.Width), rnd.Next(0, KulikGame.Height)), new Point(-r, r / 10), new Size(s, s));
+            //}
 
             // Аптечки
             _kits = new HealthKit[5];
@@ -179,30 +199,9 @@ namespace KulikLev2
             switch (e.KeyCode)
             {
                 case Keys.ControlKey:
-                    int idx = 0;
-                    if (erasedBullets.Count > 0)
-                    {
-                        idx = erasedBullets[0];
-                        erasedBullets.RemoveAt(0);
-                    }
-                    else if (dictBullet.ContainsKey(dictBullet.Count))
-                    {
-                        int max = 0;
-                        foreach (var item in dictBullet)
-                        {
-                            max = Math.Max(max, item.Key);
-                        }
-                        idx = max;
-                    }
-                    else
-                    {
-                        idx = dictBullet.Count;
-                    }
-                    dictBullet.Add(idx, new Bullet(
-                        new Point(_ship.Position.X + _ship.Size.Width, _ship.Position.Y + _ship.Size.Height / 2),
+                    listBullets.Add(new Bullet(new Point(_ship.Position.X + _ship.Size.Width, _ship.Position.Y + _ship.Size.Height / 2),
                         new Point(4, 0),
-                        new Size(4, 1)
-                        ));
+                        new Size(4, 1)));
                     break;
                 case Keys.Up:
                     _ship.MoveUp();
@@ -238,9 +237,9 @@ namespace KulikLev2
                 { item?.Draw(); }
                 foreach (HealthKit item in _kits)
                 { item?.Draw(); }
-                foreach (var item in dictBullet)
+                foreach (Bullet item in listBullets)
                 {
-                    item.Value.Draw();
+                    item.Draw();
                 }
                 _ship?.Draw();
                 if (_ship != null)
@@ -250,7 +249,9 @@ namespace KulikLev2
             }
             else
             {
-                Finish();
+                AsteroidRange += 1;
+                InitAsteroids(AsteroidRange);
+                Draw();
             }
         }
 
@@ -265,28 +266,21 @@ namespace KulikLev2
                 if (_asteroids[i] == null) continue;
                 _asteroids[i].Update();
 
-                int[] bulletKeys = dictBullet.Keys.ToArray();
-
-                foreach (int key in bulletKeys)
+                for (int b = 0; b < listBullets.Count; b++)
                 {
-                    Bullet _o = dictBullet[key];
-
-                    if (_asteroids[i] != null && _asteroids[i].Collision(_o))
+                    if (_asteroids[i] != null && _asteroids[i].Collision(listBullets[b]))
                     {
-                        dictBullet.Remove(key);
+                        listBullets.RemoveAt(b);
                         _asteroids[i] = null;
-                        erasedBullets.Add(key);
                         FightAster += 1;
-                        continue;
                     }
-                    if (_o.Position.X >= KulikGame.Width)
+                    else if (listBullets[b].Position.X >= KulikGame.Width)
                     {
-                        dictBullet.Remove(key);
-                        erasedBullets.Add(key);
+                        listBullets.RemoveAt(b);
                     }
                     else
                     {
-                        dictBullet[key].Update();
+                        listBullets[b].Update();
                     }
                 }
 

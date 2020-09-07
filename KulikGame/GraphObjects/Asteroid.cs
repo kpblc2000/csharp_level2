@@ -65,23 +65,16 @@ namespace KulikLev2
 
         }
 
-        //private bool PointInRectangle(Point CheckPoint, Point RectangleBasePoint, Size RectangleSize)
-        //{
-        //    return (CheckPoint.X >= RectangleBasePoint.X && CheckPoint.X <= RectangleBasePoint.X + RectangleSize.Width && CheckPoint.Y >= RectangleBasePoint.Y && CheckPoint.Y <= RectangleBasePoint.Y + RectangleSize.Height);
-        //}
-
         public bool Collision(BaseObject baseObject)
         {
-            //if ((PointInRectangle(baseObject.Position, Position, Size) || PointInRectangle(new Point(baseObject.Position.X + baseObject.Size.Width, baseObject.Position.Y + baseObject.Size.Height), Position, Size)))
-            //{
-            //    return true;
-            //}
-            //else
-            //{
-            //    return false;
-            //}
-
-            return ((PointInRectangle(baseObject.Position, Position, Size) || PointInRectangle(new Point(baseObject.Position.X + baseObject.Size.Width, baseObject.Position.Y + baseObject.Size.Height), Position, Size)));
+            return
+                (PointInRectangle(baseObject.Position, Position, Size)
+                ||
+                (PointInRectangle(new Point(baseObject.Position.X + baseObject.Size.Width, baseObject.Position.Y), Position, Size))
+                ||
+                (PointInRectangle(new Point(baseObject.Position.X, baseObject.Position.Y + baseObject.Size.Height), Position, Size))
+                ||
+                PointInRectangle(new Point(baseObject.Position.X + baseObject.Size.Width, baseObject.Position.Y + baseObject.Size.Height), Position, Size));
         }
 
     }
