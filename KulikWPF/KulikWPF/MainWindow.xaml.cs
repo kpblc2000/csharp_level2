@@ -13,6 +13,11 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
+/// <summary>
+/// Алексей Кулик kpblc2000@yandex.ru
+/// C#, уровень 2, урок 5
+/// </summary>
+
 namespace KulikWPF
 {
     /// <summary>
@@ -20,28 +25,38 @@ namespace KulikWPF
     /// </summary>
     public partial class MainWindow : Window
     {
+
+        public static List<Department> departments = new List<Department>();
+        public static List<Employee> employees = new List<Employee>();
+
+
         public MainWindow()
         {
             InitializeComponent();
+
+            departments.Add(new Department("Продажи"));
+            departments.Add(new Department("Разработка"));
+            departments.Add(new Department("Тестирование"));
+
+            lstDepart.ItemsSource = departments;
+            lstDepart.SelectedIndex = 0;
+
+            employees.Add(new Employee("John", "Lennon"));
+            employees.Add(new Employee("Paul", "McCartney"));
+            employees.Add(new Employee("Mel", "Gibson"));
+            employees.Add(new Employee("John", "Kennedy"));
+            employees.Add(new Employee("Michael", "Jackson"));
+
+            lstEmployee.ItemsSource = employees;
+
+            bAddEditDep.Click += delegate { Department.AddEdit(); };
+            bAddEditEmployee.Click += delegate { Employee.AddEdit(); };
         }
-    }
 
-    public class Department
-    {
-        public string DepartName { get; }
-        public Department(string Name)
-        { DepartName = Name; }
-    }
-
-    public class Employee
-    {
-        public string FirstName { get; }
-        public string LastName { get; }
-        public Department depart { get; set; }
-        public Employee(string firstName, string lastName)
+        private void bClose_Click(object sender, RoutedEventArgs e)
         {
-            FirstName = firstName;
-            LastName = lastName;
+            Close();
         }
+
     }
 }
