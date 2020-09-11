@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.Design.Serialization;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -34,6 +35,7 @@ namespace KulikWPF
         {
             InitializeComponent();
 
+            // Заполнение списка отделов начальными значениями
             departments.Add(new Department("Продажи"));
             departments.Add(new Department("Разработка"));
             departments.Add(new Department("Тестирование"));
@@ -41,6 +43,7 @@ namespace KulikWPF
             lstDepart.ItemsSource = departments;
             lstDepart.SelectedIndex = 0;
 
+            // Заполнение списка пользователей начальными значениями
             employees.Add(new Employee("John", "Lennon"));
             employees.Add(new Employee("Paul", "McCartney"));
             employees.Add(new Employee("Mel", "Gibson"));
@@ -49,8 +52,6 @@ namespace KulikWPF
 
             lstEmployee.ItemsSource = employees;
 
-            bAddEditDep.Click += delegate { Department.AddEdit(); };
-            bAddEditEmployee.Click += delegate { Employee.AddEdit(); };
         }
 
         private void bClose_Click(object sender, RoutedEventArgs e)
@@ -58,5 +59,20 @@ namespace KulikWPF
             Close();
         }
 
+        private void bAddEditDep_Click(object sender, RoutedEventArgs e)
+        {
+            Department.AddEdit();
+            lstDepart.ItemsSource = null;
+            lstDepart.ItemsSource = departments;
+        }
+
+        private void bAddEditEmployee_Click(object sender, RoutedEventArgs e)
+        {
+            int index = lstEmployee.SelectedIndex;
+            Employee.AddEdit();
+            lstEmployee.ItemsSource = null;
+            lstEmployee.ItemsSource = employees;
+            lstEmployee.SelectedIndex = index;
+        }
     }
 }

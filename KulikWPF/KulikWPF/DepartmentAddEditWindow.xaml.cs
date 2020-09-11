@@ -26,10 +26,6 @@ namespace KulikWPF
             bAdd.IsEnabled = false;
         }
 
-        private void bClose_Click(object sender, RoutedEventArgs e)
-        {
-            Close();
-        }
 
         private void lstDep_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
@@ -42,11 +38,11 @@ namespace KulikWPF
 
         private void bSet_Click(object sender, RoutedEventArgs e)
         {
-            int index = this.lstDep.SelectedIndex;
+            int index = lstDep.SelectedIndex;
             MainWindow.departments[this.lstDep.SelectedIndex].DepartName = txtEdit.Text;
-            this.lstDep.ItemsSource = null;
-            this.lstDep.ItemsSource = MainWindow.departments;
-            this.lstDep.SelectedIndex = index;
+            lstDep.ItemsSource = null;
+            lstDep.ItemsSource = MainWindow.departments;
+            lstDep.SelectedIndex = index;
         }
 
         private void bAdd_Click(object sender, RoutedEventArgs e)
@@ -55,16 +51,17 @@ namespace KulikWPF
             {
                 MainWindow.departments.Add(new Department(txtAdd.Text));
                 txtAdd.Text = "";
-                this.lstDep.ItemsSource = null;
-                this.lstDep.ItemsSource = MainWindow.departments;
-                this.lstDep.SelectedIndex = MainWindow.departments.Count - 1;
+                lstDep.ItemsSource = null;
+                lstDep.ItemsSource = MainWindow.departments;
+                lstDep.SelectedIndex = MainWindow.departments.Count - 1;
             }
         }
 
         private void txtAdd_KeyUp(object sender, KeyEventArgs e)
         {
             TextBox txt = sender as TextBox;
-            bAdd.IsEnabled = (txt.Text.Trim(new char[] { ' ' }) != "");
+            EnableByText.MakeEnabled(txt, bAdd);
+
         }
     }
 }

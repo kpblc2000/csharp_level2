@@ -5,13 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KulikWPF"
         mc:Ignorable="d"
-        Title="Kulik" Height="307" Width="489" MinHeight="300
+        Title="Kulik : Главное окно" Height="307" Width="489" MinHeight="300
         " MinWidth="490">
   <Grid>
     <ComboBox x:Name="lstDepart" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="270"/>
     <ListBox x:Name="lstEmployee" HorizontalAlignment="Left" Height="201" Margin="10,37,0,0" VerticalAlignment="Top" Width="270"/>
-    <Button x:Name="bAddEditDep" Content="Работа с отделами" HorizontalAlignment="Left" Margin="285,12,0,0" VerticalAlignment="Top" Width="186"/>
-    <Button x:Name="bAddEditEmployee" Content="Работа с пользователями" HorizontalAlignment="Left" Margin="285,37,0,0" VerticalAlignment="Top" Width="186"/>
+    <Button x:Name="bAddEditDep" Content="Редактировать отделы..." HorizontalAlignment="Left" Margin="285,12,0,0" VerticalAlignment="Top" Width="186" Click="bAddEditDep_Click"/>
+    <Button x:Name="bAddEditEmployee" Content="Редактировать пользователей..." HorizontalAlignment="Left" Margin="285,37,0,0" VerticalAlignment="Top" Width="186" Click="bAddEditEmployee_Click"/>
     <Button x:Name="bClose" Content="Закрыть" IsCancel="True" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="103" Click="bClose_Click"/>
 
   </Grid>

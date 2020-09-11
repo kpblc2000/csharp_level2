@@ -5,10 +5,10 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KulikWPF"
         mc:Ignorable="d"
-        Title="DepartmentAddEditWindow" Height="345.822" Width="376" MinHeight="350" MinWidth="450">
+        Title="Kulik : Редактирование отделов" Height="345.822" Width="293" MinHeight="350" MinWidth="350">
   <Grid>
-    <Button x:Name="bClose" Content="Закрыть" IsCancel="True" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="103" Click="bClose_Click"/>
-    <ListBox x:Name="lstDep" Height="109" Margin="10,44,119,0" VerticalAlignment="Top" SelectionChanged="lstDep_SelectionChanged"/>
+    <Button x:Name="bClose" Content="Закрыть" IsCancel="True" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="103"/>
+    <ListBox x:Name="lstDep" Height="109" Margin="10,44,10,0" VerticalAlignment="Top" SelectionChanged="lstDep_SelectionChanged"/>
     <Label Content="Отделы" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="175"/>
     <TextBox x:Name="txtAdd" HorizontalAlignment="Left" Height="23" Margin="10,158,0,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="175" KeyUp="txtAdd_KeyUp"/>
     <Button x:Name="bAdd" Content="Добавить" HorizontalAlignment="Left" Margin="190,158,0,0" VerticalAlignment="Top" Width="133" Click="bAdd_Click"/>
