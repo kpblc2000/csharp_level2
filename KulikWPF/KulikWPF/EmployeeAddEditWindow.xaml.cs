@@ -61,12 +61,12 @@ namespace KulikWPF
         {
             grp.Visibility = Visibility.Visible;
             int index = lstEmpl.SelectedIndex;
-            txtFirstName.Text = MainWindow.employees[index].FirstName;
-            txtLastName.Text = MainWindow.employees[index].LastName;
-            if (MainWindow.employees[index].depart != null)
-            {
-                lstDep.SelectedIndex = MainWindow.departments.IndexOf(MainWindow.employees[index].depart);
-            }
+            //txtFirstName.Text = MainWindow.employees[index].FirstName;
+            //txtLastName.Text = MainWindow.employees[index].LastName;
+            //if (MainWindow.employees[index].depart != null)
+            //{
+            //    lstDep.SelectedIndex = MainWindow.departments.IndexOf(MainWindow.employees[index].depart);
+            //}
             editMode = true;
             bAccept.IsEnabled = editMode;
             bCancel.IsEnabled = editMode;
@@ -91,21 +91,21 @@ namespace KulikWPF
                 if (editMode)
                 { // Режим редактирования. Топорно, но на что хватило мозгов
                     index = lstEmpl.SelectedIndex;
-                    MainWindow.employees.RemoveAt(index);
+                    //MainWindow.employees.RemoveAt(index);
                 }
                 else
                 {
-                    index = MainWindow.employees.Count;
+                    //index = MainWindow.employees.Count;
                 }
 
-                if (lstDep.SelectedItem != null)
-                {
-                    empl.depart = MainWindow.departments[lstDep.SelectedIndex];
-                }
-                MainWindow.employees.Insert(index, empl);
+                //if (lstDep.SelectedItem != null)
+                //{
+                //    empl.depart = MainWindow.departments[lstDep.SelectedIndex];
+                //}
+                //MainWindow.employees.Insert(index, empl);
 
-                lstEmpl.ItemsSource = null;
-                lstEmpl.ItemsSource = MainWindow.employees;
+                //lstEmpl.ItemsSource = null;
+                //lstEmpl.ItemsSource = MainWindow.employees;
             }
             lstEmpl.IsEnabled = true;
             grp.Visibility = Visibility.Hidden;

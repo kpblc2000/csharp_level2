@@ -1,22 +1,24 @@
-﻿namespace KulikWPF
+﻿using System.ComponentModel;
+
+namespace KulikWPF
 {
-    public class Department
+    public class Department : INotifyPropertyChanged
     {
-        public string DepartName { get; set; }
+        private string _name;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public string DepartName
+        {
+            get => this._name;
+            set
+            {
+                this._name = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.DepartName)));
+            }
+        }
+
         public Department(string Name)
-        { DepartName = Name; }
-
-        public override string ToString()
-        {
-            return DepartName;
-        }
-
-        public static void AddEdit()
-        {
-            DepartmentAddEditWindow win = new DepartmentAddEditWindow();
-            win.lstDep.ItemsSource = MainWindow.departments;
-            win.lstDep.SelectedIndex = 0;
-            win.ShowDialog();
-        }
+        { _name = Name; }
     }
 }

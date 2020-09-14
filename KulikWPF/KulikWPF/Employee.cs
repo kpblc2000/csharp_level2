@@ -19,11 +19,13 @@ namespace KulikWPF
             return $"{LastName} {FirstName} {worksAt}";
         }
 
+        public string FullName { get { return LastName + " " + FirstName; } }
+
         public static void AddEdit()
         {
             EmployeeAddEditWindow win = new EmployeeAddEditWindow();
-            win.lstDep.ItemsSource = MainWindow.departments;
-            win.lstEmpl.ItemsSource = MainWindow.employees;
+            //win.lstDep.ItemsSource = MainWindow.departments;
+            //win.lstEmpl.ItemsSource = MainWindow.employees;
             win.lstEmpl.SelectedIndex = 0;
             win.grp.Visibility = System.Windows.Visibility.Hidden;
             win.ShowDialog();

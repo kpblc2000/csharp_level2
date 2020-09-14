@@ -39,9 +39,9 @@ namespace KulikWPF
         private void bSet_Click(object sender, RoutedEventArgs e)
         {
             int index = lstDep.SelectedIndex;
-            MainWindow.departments[this.lstDep.SelectedIndex].DepartName = txtEdit.Text;
+            //MainWindow.departments[this.lstDep.SelectedIndex].DepartName = txtEdit.Text;
             lstDep.ItemsSource = null;
-            lstDep.ItemsSource = MainWindow.departments;
+            //lstDep.ItemsSource = MainWindow.departments;
             lstDep.SelectedIndex = index;
         }
 
@@ -49,11 +49,11 @@ namespace KulikWPF
         {
             if (txtAdd.Text != "")
             {
-                MainWindow.departments.Add(new Department(txtAdd.Text));
+                //MainWindow.departments.Add(new Department(txtAdd.Text));
                 txtAdd.Text = "";
                 lstDep.ItemsSource = null;
-                lstDep.ItemsSource = MainWindow.departments;
-                lstDep.SelectedIndex = MainWindow.departments.Count - 1;
+                //lstDep.ItemsSource = MainWindow.departments;
+                //lstDep.SelectedIndex = MainWindow.departments.Count - 1;
             }
         }
 

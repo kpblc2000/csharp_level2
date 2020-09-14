@@ -8,8 +8,20 @@
         Title="Kulik : Главное окно" Height="307" Width="489" MinHeight="300
         " MinWidth="490">
   <Grid>
-    <ComboBox x:Name="lstDepart" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="270"/>
-    <ListBox x:Name="lstEmployee" HorizontalAlignment="Left" Height="201" Margin="10,37,0,0" VerticalAlignment="Top" Width="270"/>
+    <ComboBox x:Name="lstDepart" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top" Width="270" ItemsSource="{Binding Datas.departments}">
+      <ComboBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding DepartName}"/>
+        </DataTemplate>
+      </ComboBox.ItemTemplate>
+    </ComboBox>
+    <ListBox x:Name="lstEmployee" HorizontalAlignment="Left" Height="201" Margin="10,37,0,0" VerticalAlignment="Top" Width="270" ItemsSource="{Binding Datas.employees}">
+      <ListBox.ItemTemplate>
+        <DataTemplate>
+          <TextBlock Text="{Binding FullName}"/>
+        </DataTemplate>
+      </ListBox.ItemTemplate>
+    </ListBox>
     <Button x:Name="bAddEditDep" Content="Редактировать отделы..." HorizontalAlignment="Left" Margin="285,12,0,0" VerticalAlignment="Top" Width="186" Click="bAddEditDep_Click"/>
     <Button x:Name="bAddEditEmployee" Content="Редактировать пользователей..." HorizontalAlignment="Left" Margin="285,37,0,0" VerticalAlignment="Top" Width="186" Click="bAddEditEmployee_Click"/>
     <Button x:Name="bClose" Content="Закрыть" IsCancel="True" HorizontalAlignment="Right" Margin="0,0,10,10" VerticalAlignment="Bottom" Width="103" Click="bClose_Click"/>

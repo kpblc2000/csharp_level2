@@ -4,10 +4,10 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{CA7EC4A1-1D37-49D5-8F3A-49718742015A}</ProjectGuid>
+    <ProjectGuid>{837CC77C-A863-47A1-9976-0BE5AADE8C19}</ProjectGuid>
     <OutputType>WinExe</OutputType>
-    <RootNamespace>KulikWPF</RootNamespace>
-    <AssemblyName>KulikWPF</AssemblyName>
+    <RootNamespace>WpfApp1</RootNamespace>
+    <AssemblyName>WpfApp1</AssemblyName>
     <TargetFrameworkVersion>v4.7.2</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
     <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
@@ -55,14 +55,6 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Page Include="DepartmentAddEditWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="EmployeeAddEditWindow.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -71,16 +63,6 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Datas.cs" />
-    <Compile Include="Department.cs" />
-    <Compile Include="DepartmentAddEditWindow.xaml.cs">
-      <DependentUpon>DepartmentAddEditWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Employee.cs" />
-    <Compile Include="EmployeeAddEditWindow.xaml.cs">
-      <DependentUpon>EmployeeAddEditWindow.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="EnableByText.cs" />
     <Compile Include="MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>

@@ -27,30 +27,30 @@ namespace KulikWPF
     public partial class MainWindow : Window
     {
 
-        public static List<Department> departments = new List<Department>();
-        public static List<Employee> employees = new List<Employee>();
+        //public static List<Department> departments = new List<Department>();
+        //public static List<Employee> employees = new List<Employee>();
 
 
         public MainWindow()
         {
             InitializeComponent();
 
-            // Заполнение списка отделов начальными значениями
-            departments.Add(new Department("Продажи"));
-            departments.Add(new Department("Разработка"));
-            departments.Add(new Department("Тестирование"));
+            //// Заполнение списка отделов начальными значениями
+            //departments.Add(new Department("Продажи"));
+            //departments.Add(new Department("Разработка"));
+            //departments.Add(new Department("Тестирование"));
 
-            lstDepart.ItemsSource = departments;
-            lstDepart.SelectedIndex = 0;
+            //lstDepart.ItemsSource = departments;
+            //lstDepart.SelectedIndex = 0;
 
-            // Заполнение списка пользователей начальными значениями
-            employees.Add(new Employee("John", "Lennon"));
-            employees.Add(new Employee("Paul", "McCartney"));
-            employees.Add(new Employee("Mel", "Gibson"));
-            employees.Add(new Employee("John", "Kennedy"));
-            employees.Add(new Employee("Michael", "Jackson"));
+            //// Заполнение списка пользователей начальными значениями
+            //employees.Add(new Employee("John", "Lennon"));
+            //employees.Add(new Employee("Paul", "McCartney"));
+            //employees.Add(new Employee("Mel", "Gibson"));
+            //employees.Add(new Employee("John", "Kennedy"));
+            //employees.Add(new Employee("Michael", "Jackson"));
 
-            lstEmployee.ItemsSource = employees;
+            //lstEmployee.ItemsSource = employees;
 
         }
 
@@ -61,18 +61,18 @@ namespace KulikWPF
 
         private void bAddEditDep_Click(object sender, RoutedEventArgs e)
         {
-            Department.AddEdit();
-            lstDepart.ItemsSource = null;
-            lstDepart.ItemsSource = departments;
+            //Department.AddEdit();
+            //lstDepart.ItemsSource = null;
+            //lstDepart.ItemsSource = departments;
         }
 
         private void bAddEditEmployee_Click(object sender, RoutedEventArgs e)
         {
             int index = lstEmployee.SelectedIndex;
-            Employee.AddEdit();
-            lstEmployee.ItemsSource = null;
-            lstEmployee.ItemsSource = employees;
-            lstEmployee.SelectedIndex = index;
+            //Employee.AddEdit();
+            //lstEmployee.ItemsSource = null;
+            //lstEmployee.ItemsSource = employees;
+            //lstEmployee.SelectedIndex = index;
         }
     }
 }
