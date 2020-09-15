@@ -1,34 +1,42 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
 
 namespace KulikWPF
 {
-    public class Employee
+    public class Employee : INotifyPropertyChanged
     {
-        public string FirstName { get; }
-        public string LastName { get; }
-        public Department depart { get; set; }
-        public Employee(string firstName, string lastName)
+
+        private string _name;
+        private Department _dep;
+
+        public event PropertyChangedEventHandler PropertyChanged;
+
+        public Department DepName
         {
-            FirstName = firstName;
-            LastName = lastName;
+            get => this._dep;
+            set
+            {
+                _dep = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.DepName)));
+            }
         }
 
-        public override string ToString()
+        public Employee(string EmployeeName)
         {
-            string worksAt = depart == null ? "" : $" работает в отделе {depart}";
-            return $"{LastName} {FirstName} {worksAt}";
+            _name = EmployeeName;
         }
 
-        public string FullName { get { return LastName + " " + FirstName; } }
-
-        public static void AddEdit()
+        public string FullName
         {
-            EmployeeAddEditWindow win = new EmployeeAddEditWindow();
-            //win.lstDep.ItemsSource = MainWindow.departments;
-            //win.lstEmpl.ItemsSource = MainWindow.employees;
-            win.lstEmpl.SelectedIndex = 0;
-            win.grp.Visibility = System.Windows.Visibility.Hidden;
-            win.ShowDialog();
+            get => this._name;
+            set
+            {
+                _name = value;
+                PropertyChanged?.Invoke(this, new PropertyChangedEventArgs(nameof(this.FullName)));
+            }
         }
+
+
+
     }
 }

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.ObjectModel;
 using System.ComponentModel.Design.Serialization;
 using System.Linq;
 using System.Text;
@@ -29,28 +30,38 @@ namespace KulikWPF
 
         //public static List<Department> departments = new List<Department>();
         //public static List<Employee> employees = new List<Employee>();
+        //public Datas DB;
 
+        ObservableCollection<Employee> employees;
+        public Employee EmplProp { get; set; }
+        public Department DepProp { get; set; }
+
+        //EmplCollection empl;
 
         public MainWindow()
         {
+
+            //            DB = new Datas();
+            //empl = new EmplCollection();
+
             InitializeComponent();
 
-            //// Заполнение списка отделов начальными значениями
-            //departments.Add(new Department("Продажи"));
-            //departments.Add(new Department("Разработка"));
-            //departments.Add(new Department("Тестирование"));
+            //MainWinGrid.DataContext = DB;
+            // lstDep.DataContext = empl;
+            //lstDep.ItemsSource = DB.departments;
+            // lstEmp.ItemsSource = DB.employees;
+            // lstEmp.ItemsSource = empl;
 
-            //lstDepart.ItemsSource = departments;
-            //lstDepart.SelectedIndex = 0;
+            employees = new ObservableCollection<Employee>()
+            {
+                new Employee("John Lennon"),
+                new Employee("Paul McCartney"),
+                new Employee("Mel Gibson"),
+                new Employee("John Kennedy"),
+                new Employee("Michael Jackson")
+            };
 
-            //// Заполнение списка пользователей начальными значениями
-            //employees.Add(new Employee("John", "Lennon"));
-            //employees.Add(new Employee("Paul", "McCartney"));
-            //employees.Add(new Employee("Mel", "Gibson"));
-            //employees.Add(new Employee("John", "Kennedy"));
-            //employees.Add(new Employee("Michael", "Jackson"));
-
-            //lstEmployee.ItemsSource = employees;
+            lstEmp.ItemsSource = employees;
 
         }
 
@@ -59,20 +70,36 @@ namespace KulikWPF
             Close();
         }
 
-        private void bAddEditDep_Click(object sender, RoutedEventArgs e)
+        private void btnEditDep_Click(object sender, RoutedEventArgs e)
         {
-            //Department.AddEdit();
-            //lstDepart.ItemsSource = null;
-            //lstDepart.ItemsSource = departments;
+        
         }
 
-        private void bAddEditEmployee_Click(object sender, RoutedEventArgs e)
+        private void btnEditEmpl_Click(object sender, RoutedEventArgs e)
         {
-            int index = lstEmployee.SelectedIndex;
-            //Employee.AddEdit();
-            //lstEmployee.ItemsSource = null;
-            //lstEmployee.ItemsSource = employees;
-            //lstEmployee.SelectedIndex = index;
+            EmplProp = lstEmp.SelectedItem as Employee;
+            if (EmplProp != null)
+            {
+                var frm = new WinEditEmpl(this);
+                frm.ShowDialog();
+
+                if (frm.DialogResult.Value)
+                {
+                    employees.Add(this.EmplProp);
+                }
+
+            }
+
+        }
+
+        private void btnAddEmpl_Click(object sender, RoutedEventArgs e)
+        {
+            var frm = new WinEditEmpl();
+            frm.ShowDialog();
+            if (frm.DialogResult.Value)
+            {
+                employees.Add(this.EmplProp);
+            }
         }
     }
 }
