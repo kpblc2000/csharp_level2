@@ -25,7 +25,7 @@
         </DataTemplate>
       </ListBox.ItemTemplate>
     </ListBox>
-    <ListBox x:Name="lstEmp" Margin="10" Grid.Row="1" DataContext="{Binding Path=empl, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}">
+    <ListBox x:Name="lstEmp" Margin="10" Grid.Row="1">
       <ListBox.ItemTemplate>
         <DataTemplate>
           <TextBlock Text="{Binding FullName}"/>

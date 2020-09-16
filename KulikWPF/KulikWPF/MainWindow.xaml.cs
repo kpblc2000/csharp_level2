@@ -61,6 +61,7 @@ namespace KulikWPF
                 new Employee("Michael Jackson")
             };
 
+            lstEmp.DataContext = employees;
             lstEmp.ItemsSource = employees;
 
         }
@@ -87,9 +88,7 @@ namespace KulikWPF
                 {
                     employees.Add(this.EmplProp);
                 }
-
             }
-
         }
 
         private void btnAddEmpl_Click(object sender, RoutedEventArgs e)
