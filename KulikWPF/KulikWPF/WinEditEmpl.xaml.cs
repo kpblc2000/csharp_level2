@@ -49,6 +49,7 @@ namespace KulikWPF
             dataSource  = new Employee("");
             mainWin = w;
             MainGrid.DataContext = dataSource;
+            
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
