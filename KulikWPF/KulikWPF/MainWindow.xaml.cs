@@ -82,11 +82,12 @@ namespace KulikWPF
             if (EmplProp != null)
             {
                 var frm = new WinEditEmpl(this);
+                
                 frm.ShowDialog();
 
                 if (frm.DialogResult.Value)
                 {
-                    employees.Add(this.EmplProp);
+                    
                 }
             }
         }
@@ -94,11 +95,18 @@ namespace KulikWPF
         private void btnAddEmpl_Click(object sender, RoutedEventArgs e)
         {
             var frm = new WinEditEmpl();
+
+            frm.AddNewEmpl += MainAddNewEmployee;
+
             frm.ShowDialog();
-            if (frm.DialogResult.Value)
-            {
-                employees.Add(this.EmplProp);
-            }
+
+            frm.AddNewEmpl -= MainAddNewEmployee;
+        }
+
+        private void MainAddNewEmployee(string EmployeeName)
+        {
+            Employee item = new Employee(EmployeeName);
+            employees.Add(item);
         }
     }
 }

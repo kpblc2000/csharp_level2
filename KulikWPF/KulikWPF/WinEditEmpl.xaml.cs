@@ -20,9 +20,9 @@ namespace KulikWPF
     public partial class WinEditEmpl : Window
     {
 
-        private bool isAdd;
-        private Employee dataSource;
-        private MainWindow mainWin;
+        public delegate void NewEmpl(string EmployeeName);
+
+        public event NewEmpl AddNewEmpl;
 
         public WinEditEmpl()
         {
@@ -33,31 +33,17 @@ namespace KulikWPF
 
         public WinEditEmpl(Employee e) : this()
         {
-            dataSource = e;
-            MainGrid.DataContext = dataSource;
+            MainGrid.DataContext = e;
         }
 
-        public WinEditEmpl(MainWindow w):this()
+        public WinEditEmpl(MainWindow w) : this()
         {
-            dataSource = w.EmplProp;
-            MainGrid.DataContext = dataSource;
-        }
-
-        public WinEditEmpl(MainWindow w, bool AddMode):this()
-        {
-            isAdd = true;
-            dataSource  = new Employee("");
-            mainWin = w;
-            MainGrid.DataContext = dataSource;
-            
+            MainGrid.DataContext = w.EmplProp;
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            if (isAdd)
-            {
-                mainWin.EmplProp = dataSource;
-            }
+            AddNewEmpl?.Invoke(this.txtName.Text);
             this.DialogResult = true;
         }
 
