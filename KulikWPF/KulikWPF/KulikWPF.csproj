@@ -55,6 +55,9 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="WinEditDepart.xaml.cs">
+      <DependentUpon>WinEditDepart.xaml</DependentUpon>
+    </Compile>
     <Compile Include="WinEditEmpl.xaml.cs">
       <DependentUpon>WinEditEmpl.xaml</DependentUpon>
     </Compile>
@@ -73,6 +76,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="WinEditDepart.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="WinEditEmpl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

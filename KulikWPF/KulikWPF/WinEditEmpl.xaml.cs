@@ -20,30 +20,34 @@ namespace KulikWPF
     public partial class WinEditEmpl : Window
     {
 
-        public delegate void NewEmpl(string EmployeeName);
+        public delegate void NewEmpl(string EmployeeName, int SelectedDepartment);
 
-        public event NewEmpl AddNewEmpl;
+        public event NewEmpl EventAddNewEmpl;
 
         public WinEditEmpl()
         {
             InitializeComponent();
-            //btnOk.Click += delegate { this.DialogResult = true; };
-            //btnCancel.Click += delegate { this.DialogResult = false; };
         }
 
-        public WinEditEmpl(Employee e) : this()
-        {
-            MainGrid.DataContext = e;
-        }
+        //public WinEditEmpl(Employee e) : this()
+        //{
+        //    MainGrid.DataContext = e;
+        //}
 
         public WinEditEmpl(MainWindow w) : this()
         {
             MainGrid.DataContext = w.EmplProp;
+            // lstDep.DataContext = w.departments;
+            lstDep.ItemsSource = w.departments;
+            if (w.EmplProp.DepName != null)
+            {
+                lstDep.SelectedItem = w.EmplProp.DepName;
+            }
         }
 
         private void btnOk_Click(object sender, RoutedEventArgs e)
         {
-            AddNewEmpl?.Invoke(this.txtName.Text);
+            EventAddNewEmpl?.Invoke(this.txtName.Text, this.lstDep.SelectedIndex);
             this.DialogResult = true;
         }
 

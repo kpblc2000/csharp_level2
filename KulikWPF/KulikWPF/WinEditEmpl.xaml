@@ -5,12 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:KulikWPF"
         mc:Ignorable="d"
-        Title="WinEditEmpl" Height="412.912" Width="489.698">
+        Title="WinEditEmpl" Height="216.361" Width="489.698">
   <Grid x:Name="MainGrid">
     <Label Content="Имя" HorizontalAlignment="Left" Height="23" Margin="10,10,0,0" VerticalAlignment="Top" Width="337"/>
     <TextBox x:Name="txtName" HorizontalAlignment="Left" Height="22" Margin="15,38,0,0" TextWrapping="Wrap" Text="{Binding FullName, UpdateSourceTrigger=PropertyChanged}" VerticalAlignment="Top" Width="332" TabIndex="1"/>
-    <Button x:Name="btnOk" Content="OK" Height="20" Margin="10,75,344,0" VerticalAlignment="Top" Click="btnOk_Click" TabIndex="2"/>
-    <Button x:Name="btnCancel" Content="Отмена" Height="20" Margin="143,75,211,0" VerticalAlignment="Top" IsCancel="True" Click="btnCancel_Click" TabIndex="3"/>
-
+    <Button x:Name="btnOk" Content="OK" Height="20" Margin="9,157,345,0" VerticalAlignment="Top" Click="btnOk_Click" TabIndex="2"/>
+    <Button x:Name="btnCancel" Content="Отмена" Height="20" Margin="142,157,212,0" VerticalAlignment="Top" IsCancel="True" Click="btnCancel_Click" TabIndex="3"/>
+    <ListBox x:Name="lstDep" HorizontalAlignment="Left" Height="87" Margin="15,65,0,0" VerticalAlignment="Top" Width="332">
+    </ListBox>
   </Grid>
 </Window>

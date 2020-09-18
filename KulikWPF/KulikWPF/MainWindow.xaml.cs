@@ -33,6 +33,7 @@ namespace KulikWPF
         //public Datas DB;
 
         ObservableCollection<Employee> employees;
+        public ObservableCollection<Department> departments;
         public Employee EmplProp { get; set; }
         public Department DepProp { get; set; }
 
@@ -64,6 +65,15 @@ namespace KulikWPF
             lstEmp.DataContext = employees;
             lstEmp.ItemsSource = employees;
 
+            departments = new ObservableCollection<Department>()
+            {
+                new Department("Тестирование"),
+                new Department("Разработка"),
+                new Department("Документирование")
+            };
+
+            lstDep.ItemsSource = departments;
+
         }
 
         private void bClose_Click(object sender, RoutedEventArgs e)
@@ -71,9 +81,26 @@ namespace KulikWPF
             Close();
         }
 
+        private void btnAddDep_Click(object sender, RoutedEventArgs e)
+        {
+            DepProp = null;
+            var frm = new WinEditDepart(this);
+        }
+
         private void btnEditDep_Click(object sender, RoutedEventArgs e)
         {
-        
+
+        }
+
+        private void btnAddEmpl_Click(object sender, RoutedEventArgs e)
+        {
+            EmplProp = null;
+            var frm = new WinEditEmpl(this);
+
+            frm.EventAddNewEmpl += MainAddNewEmployee;
+
+            frm.ShowDialog();
+
         }
 
         private void btnEditEmpl_Click(object sender, RoutedEventArgs e)
@@ -82,30 +109,26 @@ namespace KulikWPF
             if (EmplProp != null)
             {
                 var frm = new WinEditEmpl(this);
-                
+                frm.EventAddNewEmpl += MainEditEmployee;
                 frm.ShowDialog();
-
-                if (frm.DialogResult.Value)
-                {
-                    
-                }
             }
         }
 
-        private void btnAddEmpl_Click(object sender, RoutedEventArgs e)
+        private void MainEditEmployee(string EmployeeName, int SelectedDepartment)
         {
-            var frm = new WinEditEmpl();
-
-            frm.AddNewEmpl += MainAddNewEmployee;
-
-            frm.ShowDialog();
-
-            frm.AddNewEmpl -= MainAddNewEmployee;
+            if (SelectedDepartment >= 0)
+            {
+                EmplProp.DepName = departments[SelectedDepartment];
+            }
         }
 
-        private void MainAddNewEmployee(string EmployeeName)
+        private void MainAddNewEmployee(string EmployeeName, int SelDepartIndex)
         {
             Employee item = new Employee(EmployeeName);
+            if (SelDepartIndex >= 0)
+            {
+                item.DepName = departments[SelDepartIndex];
+            }
             employees.Add(item);
         }
     }

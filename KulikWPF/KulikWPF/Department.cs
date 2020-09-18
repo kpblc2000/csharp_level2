@@ -20,5 +20,10 @@ namespace KulikWPF
 
         public Department(string Name)
         { _name = Name; }
+
+        public override string ToString()
+        {
+            return _name;
+        }
     }
 }
