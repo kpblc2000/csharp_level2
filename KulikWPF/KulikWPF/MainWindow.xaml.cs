@@ -85,11 +85,24 @@ namespace KulikWPF
         {
             DepProp = null;
             var frm = new WinEditDepart(this);
+            frm.EventNewEditDepart += MainAddNewDepart;
+            frm.ShowDialog();
+        }
+
+        private void MainAddNewDepart(string DepartmentName)
+        {
+            departments.Add(new Department(DepartmentName));
         }
 
         private void btnEditDep_Click(object sender, RoutedEventArgs e)
         {
-
+            if (lstDep.SelectedIndex >= 0)
+            {
+                DepProp = departments[lstDep.SelectedIndex];
+                var frm = new WinEditDepart(this);
+                frm.EventNewEditDepart += MainEditDeparts;
+                frm.ShowDialog();
+            }
         }
 
         private void btnAddEmpl_Click(object sender, RoutedEventArgs e)
@@ -112,6 +125,11 @@ namespace KulikWPF
                 frm.EventAddNewEmpl += MainEditEmployee;
                 frm.ShowDialog();
             }
+        }
+
+        private void MainEditDeparts(string DepartmentName)
+        {
+            DepProp.DepartName = DepartmentName;
         }
 
         private void MainEditEmployee(string EmployeeName, int SelectedDepartment)

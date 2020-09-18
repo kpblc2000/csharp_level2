@@ -19,6 +19,11 @@ namespace KulikWPF
     /// </summary>
     public partial class WinEditDepart : Window
     {
+
+        public delegate void NewEditDepartment(string DepartmentName);
+
+        public event NewEditDepartment EventNewEditDepart;
+
         public WinEditDepart()
         {
             InitializeComponent();
@@ -32,5 +37,17 @@ namespace KulikWPF
                 txtName.Text = w.DepProp.DepartName;
             }
         }
-    }
+
+        private void btnOk_Click(object sender, RoutedEventArgs e)
+        {
+            EventNewEditDepart?.Invoke(this.txtName.Text);
+            this.DialogResult = true;
+        }
+
+        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        {
+            this.DialogResult = false;
+        }
+
+     }
 }
